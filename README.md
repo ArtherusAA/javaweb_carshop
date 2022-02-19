@@ -1,2 +1,6 @@
 # javaweb_carshop
-Car shop online store
+
+# Система учета автосалона
+## Схема базы данных
+
+[!alt text](Car shop - database.png?raw=true)
