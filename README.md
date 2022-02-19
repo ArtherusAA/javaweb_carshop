@@ -3,4 +3,4 @@
 # Система учета автосалона
 ## Схема базы данных
 
-[!alt text](Car shop - database.png?raw=true)
+![База данных](database.png)
