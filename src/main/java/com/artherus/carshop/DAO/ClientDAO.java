@@ -6,11 +6,7 @@ import com.artherus.carshop.models.Client;
 import java.sql.Timestamp;
 import java.util.List;
 
-public interface ClientDAO {
-
-    void addClient(Client client);
-    void updateClient(Client client);
-    void deleteClient(Client client);
+public interface ClientDAO extends CommonDAO<Client> {
 
     Client getClientByOrderId(Integer order_id);
     List<Client> getClientsByOrderDateRange(Timestamp start, Timestamp finish);

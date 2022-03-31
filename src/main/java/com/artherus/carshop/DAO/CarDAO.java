@@ -5,11 +5,7 @@ import com.artherus.carshop.models.Car;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface CarDAO {
-
-    void addCar(Car car);
-    void updateCar(Car car);
-    void deleteCar(Car car);
+public interface CarDAO extends CommonDAO<Car> {
 
     List<Car> getCarByModel(String model);
     List<Car> getCarByManufacturer(String manufacturer);
