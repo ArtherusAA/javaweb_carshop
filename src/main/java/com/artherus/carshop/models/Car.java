@@ -17,7 +17,8 @@ import java.sql.Timestamp;
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ")
+    @SequenceGenerator(name = "SEQ", sequenceName = "CAR_SEQ", allocationSize = 1)
     @Column(nullable = false, name = "reg_id")
     private Integer reg_id;
 
@@ -26,9 +27,8 @@ public class Car {
     @ToString.Exclude
     private CarModel model_id;
 
-    @Column(name="embedded_systems", columnDefinition = "text[]")
-    @Type(type = "com.baeldung.hibernate.arraymapping.CustomStringArrayType")
-    private String[] embedded_systems;
+    @Column(name="embedded_systems")
+    private String embedded_systems;
 
     @Column(name = "upholstery")
     private String upholstery;
@@ -41,10 +41,6 @@ public class Car {
     @NonNull
     private String seat_type;
 
-    @Column(name="extra_interior_components", columnDefinition = "text[]")
-    @Type(type = "com.baeldung.hibernate.arraymapping.CustomStringArrayType")
-    private String[] extra_interior_components;
-
     @Column(name = "last_tech_inspection")
     private Timestamp last_tech_inspection;
 
@@ -53,8 +49,4 @@ public class Car {
 
     @Column(name = "price")
     private BigDecimal price;
-
-    @Column(name="test_drive_clients", columnDefinition = "int[]")
-    @Type(type = "com.baeldung.hibernate.arraymapping.CustomIntegerArrayType")
-    private Integer[] test_drive_clients;
 }

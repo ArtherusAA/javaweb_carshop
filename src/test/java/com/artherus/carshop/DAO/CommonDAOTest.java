@@ -1,14 +1,14 @@
 package com.artherus.carshop.DAO;
 
-import com.artherus.carshop.HibernateDatabaseConfig;
 import com.artherus.carshop.models.CarModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestPropertySource(locations="classpath:application.properties")
-class CarModelDAOTest {
+class CommonDAOTest {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -28,17 +28,17 @@ class CarModelDAOTest {
     private CarModelDAO carModelDAO;
 
     @Test
-    void getCarModelsByName() {
-        List<CarModel> models = carModelDAO.getCarModelsByName("X5");
-        assertEquals(1, models.size());
-        assertEquals("X5", models.get(0).getModel());
+    void updateEntity() {
+        CarModel model = carModelDAO.getCarModelsByName("X5").get(0);
+        model.setModel("X4");
+        carModelDAO.updateEntity(model);
+        assertEquals(1, carModelDAO.getCarModelsByName("X4").get(0).getModel_id());
     }
 
     @Test
-    void getCarModelsByManufacturer() {
-        List<CarModel> models = carModelDAO.getCarModelsByManufacturer("Mercedes");
-        assertEquals(2, models.size());
-        assertEquals("Mercedes", models.get(0).getManufacturer());
+    void deleteEntity() {
+        carModelDAO.deleteEntity(carModelDAO.getCarModelsByName("X5").get(0));
+        assertEquals(2, carModelDAO.getCarModelsByManufacturer("BMW").size());
     }
 
     @BeforeEach

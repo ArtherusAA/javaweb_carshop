@@ -20,12 +20,12 @@ public class ClientDAOImpl extends CommonDAOImpl<Client> implements ClientDAO {
     @Override
     public Client getClientByOrderId(Integer order_id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query<Client> query = session.createQuery("FROM Client WHERE :order_id IN orders",
-                        Client.class).setParameter("order_id", order_id);
-        if (query.getResultList().size() == 0) {
+        Query<Order> orders = session.createQuery("FROM Order WHERE order_id = :order_id",
+                        Order.class).setParameter("order_id", order_id);
+        if (orders.getResultList().size() == 0) {
             return null;
         }
-        return query.getResultList().get(0);
+        return orders.getResultList().get(0).getClient();
     }
 
     @Override
@@ -40,8 +40,13 @@ public class ClientDAOImpl extends CommonDAOImpl<Client> implements ClientDAO {
         orders.forEach(order -> client_ids.add(order.getClient().getClient_id()));
         StringBuilder id_string = new StringBuilder("(");
         client_ids.forEach(id -> id_string.append(id.toString() + ","));
-        Query<Client> query = session.createQuery("FROM Client WHERE client_id IN :ids",
-                Client.class).setParameter("ids", id_string.toString());
+        if (id_string.charAt(id_string.length() - 1) == ',') {
+            id_string.setCharAt(id_string.length() - 1, ')');
+        } else {
+            return null;
+        }
+        Query<Client> query = session.createQuery("FROM Client WHERE client_id IN " + id_string,
+                Client.class);
         return query.getResultList();
     }
 
@@ -57,8 +62,13 @@ public class ClientDAOImpl extends CommonDAOImpl<Client> implements ClientDAO {
         orders.forEach(order -> client_ids.add(order.getClient().getClient_id()));
         StringBuilder id_string = new StringBuilder("(");
         client_ids.forEach(id -> id_string.append(id.toString() + ","));
-        Query<Client> query = session.createQuery("FROM Client WHERE client_id IN :ids",
-                Client.class).setParameter("ids", id_string.toString());
+        if (id_string.charAt(id_string.length() - 1) == ',') {
+            id_string.setCharAt(id_string.length() - 1, ')');
+        } else {
+            return null;
+        }
+        Query<Client> query = session.createQuery("FROM Client WHERE client_id IN " + id_string,
+                Client.class);
         return query.getResultList();
     }
 

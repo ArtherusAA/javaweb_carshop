@@ -15,7 +15,8 @@ import java.sql.Timestamp;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ")
+    @SequenceGenerator(name = "SEQ", sequenceName = "ORDER_SEQ", allocationSize = 1)
     @Column(nullable = false, name = "order_id")
     private Integer order_id;
 
@@ -36,5 +37,9 @@ public class Order {
     @Column(nullable = false, name = "is_test_drive_neccesary")
     @NonNull
     private Boolean is_test_drive_neccesary;
+
+    @Column(nullable = false, name = "status")
+    @NonNull
+    private String status;
 
 }

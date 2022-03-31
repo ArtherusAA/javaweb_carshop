@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ")
+    @SequenceGenerator(name = "SEQ", sequenceName = "CLIENT_SEQ", allocationSize = 1)
     @Column(nullable = false, name = "client_id")
     private Integer client_id;
 
@@ -32,9 +33,5 @@ public class Client {
 
     @Column(name = "email")
     private String email;
-
-    @Column(name="orders", columnDefinition = "int[]")
-    @Type(type = "com.baeldung.hibernate.arraymapping.CustomIntegerArrayType")
-    private Integer[] orders;
 
 }

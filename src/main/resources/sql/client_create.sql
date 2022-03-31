@@ -5,6 +5,5 @@ CREATE TABLE clients (
     name text NOT NULL,
     address text NOT NULL,
     phone text,
-    email text,
-    orders integer[]
+    email text
 );

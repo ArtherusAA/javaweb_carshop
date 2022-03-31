@@ -6,7 +6,7 @@ import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "car_modles")
+@Table(name = "car_models")
 @Getter
 @Setter
 @ToString
@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class CarModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ")
+    @SequenceGenerator(name = "SEQ", sequenceName = "CAR_MODEL_SEQ", allocationSize = 1)
     @Column(nullable = false, name = "model_id")
     private Integer model_id;
 
