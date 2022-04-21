@@ -17,6 +17,10 @@ import java.util.Set;
 @Repository
 public class ClientDAOImpl extends CommonDAOImpl<Client> implements ClientDAO {
 
+    public ClientDAOImpl() {
+        super(Client.class);
+    }
+
     @Override
     public Client getClientByOrderId(Integer order_id) {
         Session session = HibernateUtil.getSessionFactory().openSession();

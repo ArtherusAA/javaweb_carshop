@@ -17,8 +17,8 @@ public class HibernateDatabaseConfig {
     private String DB_DRIVER;
     @Value("${url}")
     private String DB_URL;
-    @Value("${username}")
-    private String DB_USERNAME;
+//    @Value("${username}")
+    private String DB_USERNAME = "caruser";
     @Value("${password}")
     private String DB_PASSWORD;
 

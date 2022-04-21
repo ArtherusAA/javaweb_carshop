@@ -14,6 +14,10 @@ import java.util.List;
 @Repository
 public class OrderDAOImpl extends CommonDAOImpl<Order> implements OrderDAO {
 
+    public OrderDAOImpl() {
+        super(Order.class);
+    }
+
     @Override
     public List<Order> getOrdersByClient(Client client) {
         Session session = HibernateUtil.getSessionFactory().openSession();

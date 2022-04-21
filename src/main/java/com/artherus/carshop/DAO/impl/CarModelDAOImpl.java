@@ -12,6 +12,10 @@ import java.util.List;
 @Repository
 public class CarModelDAOImpl extends CommonDAOImpl<CarModel> implements CarModelDAO {
 
+    public CarModelDAOImpl() {
+        super(CarModel.class);
+    }
+
     @Override
     public List<CarModel> getCarModelsByName(String name) {
         Session session = HibernateUtil.getSessionFactory().openSession();
