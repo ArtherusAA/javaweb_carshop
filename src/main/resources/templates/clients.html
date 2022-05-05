@@ -84,13 +84,13 @@
             <td>
                 <form method="post" action="/deleteClient">
                     <input type="hidden" name="clientId" th:value="${client.getClient_id()}">
-                    <button id="deleteButton" type="submit">Удалить</button>
+                    <button id="deleteButton" type="submit" class="deleteClientButton">Удалить</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="/addClient">
+    <a id="addClientButton" href="/addClient">
         <p>Добавить клиента</p>
     </a>
 </div>

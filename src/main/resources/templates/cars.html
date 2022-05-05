@@ -48,13 +48,13 @@
             <td>
                 <form method="post" action="/deleteCar">
                     <input type="hidden" name="regId" th:value="${car.getReg_id()}">
-                    <button id="deleteButton" type="submit">Удалить</button>
+                    <button id="deleteButton" type="submit" class="deleteCarButton">Удалить</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="/addCar">
+    <a id="addCarButton" href="/addCar">
         <p>Добавить автомобиль</p>
     </a>
 </div>
