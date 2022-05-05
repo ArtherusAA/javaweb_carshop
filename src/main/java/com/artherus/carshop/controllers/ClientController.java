@@ -1,9 +1,12 @@
 package com.artherus.carshop.controllers;
 
 import com.artherus.carshop.DAO.ClientDAO;
+import com.artherus.carshop.DAO.OrderDAO;
 import com.artherus.carshop.DAO.impl.ClientDAOImpl;
+import com.artherus.carshop.DAO.impl.OrderDAOImpl;
 import com.artherus.carshop.models.Car;
 import com.artherus.carshop.models.Client;
+import com.artherus.carshop.models.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +22,15 @@ public class ClientController {
     @Autowired
     private final ClientDAO clientDAO = new ClientDAOImpl();
 
+    @Autowired
+    private final OrderDAO orderDAO = new OrderDAOImpl();
+
     @GetMapping("/clients")
     public String clientsListPage(Model model) {
         List<Client> clients = (List<Client>)clientDAO.getAll();
         model.addAttribute("clients", clients);
         model.addAttribute("clientDAO", clientDAO);
+        model.addAttribute("orderDAO", orderDAO);
         return "clients";
     }
 
@@ -92,6 +99,19 @@ public class ClientController {
             Model model
     ) {
         clientDAO.addEntity(new Client(null, clientName, clientAddress, clientPhone, clientEmail));
+        return "redirect:/clients";
+    }
+
+    @PostMapping("/deleteOrder")
+    public String deleteOrder(@RequestParam(name = "orderId") Integer orderId, Model model) {
+        Order order = orderDAO.getOrderByOrderId(orderId);
+        if (order == null) {
+            model.addAttribute(
+                    "error_message",
+                    String.format("Заказ с номером %d не зарегистрирован.", orderId));
+            return "errorPage";
+        }
+        orderDAO.deleteEntity(order);
         return "redirect:/clients";
     }
 

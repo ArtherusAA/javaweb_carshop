@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface OrderDAO extends CommonDAO<Order> {
 
+    Order getOrderByOrderId(Integer order_id);
+
     List<Order> getOrdersByClient(Client client);
     List<Order> getOrdersByDateRange(Timestamp start, Timestamp finish);
 

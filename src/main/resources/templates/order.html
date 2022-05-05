@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Заказ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="general :: page-header"></div>
+<div class="indent">
+    <div>
+        <h4 th:text="${order.getOrder_id()}"></h4>
+        <form method="post" action="/saveOrder">
+            <input type="hidden" name = "orderId" th:value="${order.getOrder_id()}">
+            <label for="clientId">Номер клиента</label>
+            <input type="number" id="clientId" name="clientId" th:value="${order.getClient().getClient_id()}"><br><br>
+
+            <label for="carId">Номер автомобиля</label>
+            <input type="number" id="carId" name="carId" th:value="${order.getCar_id().getReg_id()}"><br><br>
+
+            <label for="datetime">Дата и время заказа</label>
+            <input type="datetime-local" id="datetime" name="datetime" th:value="${order.getDate_time()}"><br><br>
+
+            <label for="isTestDriveNeccesary">Нужен ли тест драйв</label>
+            <input type="checkbox" id="isTestDriveNeccesary" name="isTestDriveNeccesary" th:checked="${order.getIs_test_drive_neccesary()}">
+            <br><br>
+
+            <label for="status">Статус заказа</label>
+            <input type="text" id="status" name="status" th:value="${order.getStatus()}">
+            <br><br>
+
+            <input id="submitButton" type="submit" value="Сохранить">
+        </form>
+    </div>
+</div>
+</body>

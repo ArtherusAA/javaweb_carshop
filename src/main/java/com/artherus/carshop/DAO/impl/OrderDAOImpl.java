@@ -19,6 +19,17 @@ public class OrderDAOImpl extends CommonDAOImpl<Order> implements OrderDAO {
     }
 
     @Override
+    public Order getOrderByOrderId(Integer order_id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query<Order> orders = session.createQuery("FROM Order WHERE order_id = :order_id",
+                Order.class).setParameter("order_id", order_id);
+        if (orders.getResultList().size() == 0) {
+            return null;
+        }
+        return orders.getResultList().get(0);
+    }
+
+    @Override
     public List<Order> getOrdersByClient(Client client) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query<Order> query = session.createQuery("FROM Order WHERE client = :client", Order.class).
